@@ -58,6 +58,7 @@ class PlantixServices
             'headers' => ['username' => 'PEAT', 'password' => 'v2xERzGBcrRJ6bUj']
         ]);
         $raw_data = $response->getBody()->getContents();
+        dd($raw_data);
 
         return PlantixServices::ProcessData(json_decode($raw_data, true), $image_url);
     }
