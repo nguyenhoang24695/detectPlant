@@ -40,7 +40,6 @@ class PlantixServices
     public static function SendRequest($image)
     {
         PlantixServices::CreateIdentity($image->getClientOriginalName());
-        dd(1);
         $type = pathinfo($image, PATHINFO_EXTENSION);
         $image->move(public_path() ."/", "picture" . $type);
         $image_url = public_path()  . "/picture" . $type;
