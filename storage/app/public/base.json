@@ -1,0 +1,23 @@
+{
+   "user_id":"99682d49-c56b-41a7-8fe1-367ffd6a014d",
+   "pic_id":"e0d4faad-ceb8-4a86-8d7b-9bc2cf16aed4",
+   "pla_id":"0b18e788-e790-42f3-96b4-1552966c6341",
+   "latitude":0.0,
+   "longitude":0.0,
+   "altitude":0.0,
+   "accuracy":0.0,
+   "provider":"dummy_location",
+   "version_name":"3.6.1",
+   "version_code":218,
+   "date":"20210922_045513",
+   "device_locale":"",
+   "user_country":"VN",
+   "user_language":"en",
+   "file_name":"IMG_20210922_045512368_99682d49-c56b-41a7-8fe1-367ffd6a014d.jpg",
+   "network_type":"wifi",
+   "image_from_gallery":true,
+   "app_name":"com.peat.GartenBank",
+   "build_config":"production",
+   "current_day_guide":-1,
+   "image_from_guide":false
+}
