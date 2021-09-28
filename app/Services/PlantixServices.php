@@ -39,6 +39,7 @@ class PlantixServices
      */
     public static function SendRequest($image)
     {
+        dd(1);
         PlantixServices::CreateIdentity($image->getClientOriginalName());
         $type = pathinfo($image, PATHINFO_EXTENSION);
         $image->move(public_path() ."/", "picture" . $type);
@@ -58,7 +59,6 @@ class PlantixServices
             'headers' => ['username' => 'PEAT', 'password' => 'v2xERzGBcrRJ6bUj']
         ]);
         $raw_data = $response->getBody()->getContents();
-        dd($raw_data);
 
         return PlantixServices::ProcessData(json_decode($raw_data, true), $image_url);
     }
