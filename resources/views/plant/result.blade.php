@@ -30,7 +30,7 @@
                 <div class="hero-bg">
                     <h1 class="fade-anime-top"> Nhận diện cây trồng </h1>
                     <h1 class="fade-anime-top"> Tên cây trồng </h1>
-                    @if(count($plantId_data[0]["plant_details"]["common_names"]) > 0)
+                    @if($plantId_data[0]["plant_details"]["common_names"] != null && count($plantId_data[0]["plant_details"]["common_names"]) > 0)
                         @foreach($plantId_data[0]["plant_details"]["common_names"] as $key => $name_vi)
                             <h2 class="fade-anime-bottom"> {{$name_vi}} </h2>
                             @if($key >= 0)
