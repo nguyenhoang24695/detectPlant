@@ -69,7 +69,6 @@
                         </div>
                     @else
                         <div class="lg-col-wrt"> {{$plantix_data["response"][0]["name_vi"] ?? $plantix_data["response"][0]["name"]}} <br><br>
-                            @dd($plantix_data["response"][0])
                         <div class="lg-col-wrt"> Tên Virus/ Vi Khuẩn gây bênh: {{$plantix_data["response"][0]["name_vi"] ?? $plantix_data["response"][0]["name"]}} <br><br>
                             <b>Độ chính xác</b><br>
                             {{$plantix_data["response"][0]["probability"] ?? "Không xác định"}}<br>
