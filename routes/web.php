@@ -35,6 +35,9 @@ Route::get('/seed', function () {
 
 Route::prefix("plant")->group(function () {
     Route::get("", [PlantController::class, 'index']);
+    Route::get("v2", [PlantController::class, 'index']);
     Route::post("upload", [PlantController::class, 'store']);
     Route::get("upload", [PlantController::class, 'show']);
+    Route::post("detect", [PlantController::class, 'show']);
+    Route::get("detect", [PlantController::class, 'edit']);
 });

@@ -127,7 +127,7 @@
 </head>
 
 <body>
-<form action="/plant/upload" method="post" enctype="multipart/form-data" class="file-upload">
+<form action="{{$url}}" method="post" enctype="multipart/form-data" class="file-upload">
     @csrf
     <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Thêm mới ảnh
     </button>

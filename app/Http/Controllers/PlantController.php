@@ -11,11 +11,14 @@ class PlantController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view("plant.index");
+        if ($request->getRequestUri() == "/plant/v2") {
+            return view("plant.index", ["url" => "/plant/detect"]);
+        }
+        return view("plant.index", ["url" => "/plant/upload"]);
     }
 
     /**
@@ -49,11 +52,18 @@ class PlantController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show()
+    public function show(Request $request)
     {
-        return view("plant.list");
+        $image = $request->file('picture');
+        $plantix_data = PlantixServices::SendRequest($image);
+//        if ($data["plant_net"][0]["name"] == "ORNAMENTAL") {
+        $p = public_path();
+        $plantId_data = PlantIdService::SendRequest($plantix_data);
+//        }
+        $plantix_data["image_url"] = str_replace($p, "/public", $plantix_data["image_url"]);
+        return view("plant.result", ['plantix_data' => $plantix_data], ['plantId_data' => $plantId_data]);
     }
 
     /**
@@ -62,9 +72,9 @@ class PlantController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        return view("plant.result");
     }
 
     /**
