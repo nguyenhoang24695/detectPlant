@@ -38,7 +38,7 @@
                             @endif
                         @endforeach
                     @else
-                        <h2 class="fade-anime-bottom"> $plantId_data[0]["plant_name"] </h2>
+                        <h2 class="fade-anime-bottom"> {{$plantId_data[0]["plant_name"]}} </h2>
                     @endif
                 </div>
             </div>
