@@ -68,11 +68,10 @@
                             {{--                        Web Development--}}
                         </div>
                     @else
-                        <div
-                            class="lg-col-wrt"> {{$plantix_data["response"][0]["name_vi"] ?? $plantix_data["response"][0]["name"]}}
+                        <div class="lg-col-wrt"> {{$plantix_data["response"][0]["name_vi"] ?? $plantix_data["response"][0]["name"]}}
                             <br><br>
-                            <div class="lg-col-wrt"> Tên Virus/ Vi Khuẩn gây
-                                bênh: {{$plantix_data["response"][0]["name_vi"] ?? $plantix_data["response"][0]["name"]}}
+                                <b>Tên Virus/ Vi Khuẩn gây bệnh:</b><br>
+                            {{$plantix_data["response"][0]["scientific_name"]}}
                                 <br><br>
                                 <b>Độ chính xác</b><br>
                                 {{$plantix_data["response"][0]["probability"] ?? "Không xác định"}}<br>
