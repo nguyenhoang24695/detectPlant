@@ -68,7 +68,9 @@
                             {{--                        Web Development--}}
                         </div>
                     @else
-                        <div class="lg-col-wrt"> {{$plantix_data["response"][0]["name"]}} <br><br>
+                        <div class="lg-col-wrt"> {{$plantix_data["response"][0]["name_vi"] ?? $plantix_data["response"][0]["name"]}} <br><br>
+                            @dd($plantix_data["response"][0])
+                        <div class="lg-col-wrt"> Tên Virus/ Vi Khuẩn gây bênh: {{$plantix_data["response"][0]["name_vi"] ?? $plantix_data["response"][0]["name"]}} <br><br>
                             <b>Độ chính xác</b><br>
                             {{$plantix_data["response"][0]["probability"] ?? "Không xác định"}}<br>
                             {{--                        Illustration<br>--}}
@@ -103,77 +105,77 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6 col-xs-12">
-                <div class="prjct-bg">
-                    <a target="blank" href="#"> <img
-                            src="/public/img/covers/1.jpg" alt="" class="img-prjct-wrk"> </a>
-                    <div class="prjct-wrt-left-wrk"></div>
-                    <div class="shw-cs2"> Project Title</div>
-                    <div class="shw-cs4"> Branding, Identity</div>
-                    <div class="shw-cs"> Case study ( Coming soon )</div>
-                </div>
-            </div>
+{{--        <div class="row">--}}
+{{--            <div class="col-md-6 col-xs-12">--}}
+{{--                <div class="prjct-bg">--}}
+{{--                    <a target="blank" href="#"> <img--}}
+{{--                            src="/public/img/covers/1.jpg" alt="" class="img-prjct-wrk"> </a>--}}
+{{--                    <div class="prjct-wrt-left-wrk"></div>--}}
+{{--                    <div class="shw-cs2"> Project Title</div>--}}
+{{--                    <div class="shw-cs4"> Branding, Identity</div>--}}
+{{--                    <div class="shw-cs"> Case study ( Coming soon )</div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
-            <div class="col-md-6 col-xs-12">
-                <div class="prjct-bg">
-                    <a target="blank" href="#"> <img
-                            src="/public/img/covers/2.jpg" alt="" class="img-prjct-wrk"> </a>
-                    <div class="prjct-wrt-right-wrk"></div>
-                    <div class="shw-cs2"> Project Title</div>
-                    <div class="shw-cs4"> Typography</div>
-                    <div class="shw-cs"> Case study ( Coming soon )</div>
-                </div>
-            </div>
-        </div>
+{{--            <div class="col-md-6 col-xs-12">--}}
+{{--                <div class="prjct-bg">--}}
+{{--                    <a target="blank" href="#"> <img--}}
+{{--                            src="/public/img/covers/2.jpg" alt="" class="img-prjct-wrk"> </a>--}}
+{{--                    <div class="prjct-wrt-right-wrk"></div>--}}
+{{--                    <div class="shw-cs2"> Project Title</div>--}}
+{{--                    <div class="shw-cs4"> Typography</div>--}}
+{{--                    <div class="shw-cs"> Case study ( Coming soon )</div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
-        <div class="row">
-            <div class="col-md-6 col-xs-12">
-                <div class="prjct-bg">
-                    <a target="blank" href="#"> <img
-                            src="/public/img/covers/3.jpg" alt="" class="img-prjct-wrk"> </a>
-                    <div class="prjct-wrt-left-wrk"></div>
-                    <div class="shw-cs2"> Project Title</div>
-                    <div class="shw-cs4"> Illustration, Art Direction</div>
-                    <div class="shw-cs"> Case study ( Coming soon )</div>
-                </div>
-            </div>
+{{--        <div class="row">--}}
+{{--            <div class="col-md-6 col-xs-12">--}}
+{{--                <div class="prjct-bg">--}}
+{{--                    <a target="blank" href="#"> <img--}}
+{{--                            src="/public/img/covers/3.jpg" alt="" class="img-prjct-wrk"> </a>--}}
+{{--                    <div class="prjct-wrt-left-wrk"></div>--}}
+{{--                    <div class="shw-cs2"> Project Title</div>--}}
+{{--                    <div class="shw-cs4"> Illustration, Art Direction</div>--}}
+{{--                    <div class="shw-cs"> Case study ( Coming soon )</div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
-            <div class="col-md-6 col-xs-12">
-                <div class="prjct-bg">
-                    <a target="blank" href="#"> <img
-                            src="/public/img/covers/4.jpg" alt="" class="img-prjct-wrk"> </a>
-                    <div class="prjct-wrt-right-wrk"></div>
-                    <div class="shw-cs2"> Project Title</div>
-                    <div class="shw-cs4"> Street Art</div>
-                    <div class="shw-cs"> Case study ( Coming soon )</div>
-                </div>
-            </div>
-        </div>
+{{--            <div class="col-md-6 col-xs-12">--}}
+{{--                <div class="prjct-bg">--}}
+{{--                    <a target="blank" href="#"> <img--}}
+{{--                            src="/public/img/covers/4.jpg" alt="" class="img-prjct-wrk"> </a>--}}
+{{--                    <div class="prjct-wrt-right-wrk"></div>--}}
+{{--                    <div class="shw-cs2"> Project Title</div>--}}
+{{--                    <div class="shw-cs4"> Street Art</div>--}}
+{{--                    <div class="shw-cs"> Case study ( Coming soon )</div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
-        <div class="row">
-            <div class="col-md-6 col-xs-12">
-                <div class="prjct-bg">
-                    <a target="blank" href="#"> <img
-                            src="/public/img/covers/5.jpg" alt="" class="img-prjct-wrk"> </a>
-                    <div class="prjct-wrt-left-wrk"></div>
-                    <div class="shw-cs2"> Project Title</div>
-                    <div class="shw-cs4"> Art Direction</div>
-                    <div class="shw-cs"> Case study ( Coming soon )</div>
-                </div>
-            </div>
+{{--        <div class="row">--}}
+{{--            <div class="col-md-6 col-xs-12">--}}
+{{--                <div class="prjct-bg">--}}
+{{--                    <a target="blank" href="#"> <img--}}
+{{--                            src="/public/img/covers/5.jpg" alt="" class="img-prjct-wrk"> </a>--}}
+{{--                    <div class="prjct-wrt-left-wrk"></div>--}}
+{{--                    <div class="shw-cs2"> Project Title</div>--}}
+{{--                    <div class="shw-cs4"> Art Direction</div>--}}
+{{--                    <div class="shw-cs"> Case study ( Coming soon )</div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
-            <div class="col-md-6 col-xs-12">
-                <div class="prjct-bg">
-                    <a target="blank" href="#"> <img
-                            src="/public/img/covers/6.jpg" alt="" class="img-prjct-wrk"> </a>
-                    <div class="prjct-wrt-right-wrk"></div>
-                    <div class="shw-cs2"> Project Title</div>
-                    <div class="shw-cs4"> Branding, Web Design, App. Design</div>
-                    <div class="shw-cs"> Case study ( Coming soon )</div>
-                </div>
-            </div>
-        </div>
+{{--            <div class="col-md-6 col-xs-12">--}}
+{{--                <div class="prjct-bg">--}}
+{{--                    <a target="blank" href="#"> <img--}}
+{{--                            src="/public/img/covers/6.jpg" alt="" class="img-prjct-wrk"> </a>--}}
+{{--                    <div class="prjct-wrt-right-wrk"></div>--}}
+{{--                    <div class="shw-cs2"> Project Title</div>--}}
+{{--                    <div class="shw-cs4"> Branding, Web Design, App. Design</div>--}}
+{{--                    <div class="shw-cs"> Case study ( Coming soon )</div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
         <!--- THE END HERO HEADER WORK SLIDER --->
 
         <!--- FOOTER --->
