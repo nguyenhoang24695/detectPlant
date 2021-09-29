@@ -66,7 +66,7 @@ class PlantController extends Controller
         $p = public_path();
         $plantId_data = PlantIdService::SendRequest($plantix_data);
 //        }
-        $plantix_data["image_url"] = str_replace($p, "/public", $plantix_data["image_url"]);
+        $plantix_data["image_url"] = str_replace($p, "", $plantix_data["image_url"]);
         session(['$plantId_data' => $plantId_data]);
         session(['$plantix_data' => $plantix_data]);
         return view("plant.result", ['plantix_data' => $plantix_data], ['plantId_data' => $plantId_data]);
