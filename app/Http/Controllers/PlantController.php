@@ -57,12 +57,18 @@ class PlantController extends Controller
     public function show(Request $request)
     {
         $image = $request->file('picture');
+        if (session('image_name') != null && session('image_name') == $image->getClientOriginalName() && session('$plantix_data') !== null) {
+            return view("plant.result", ['plantix_data' => session('$plantix_data')], ['plantId_data' => session('$plantId_data')]);
+        }
+        session(["image_name" => $image->getClientOriginalName()]);
         $plantix_data = PlantixServices::SendRequest($image);
 //        if ($data["plant_net"][0]["name"] == "ORNAMENTAL") {
         $p = public_path();
         $plantId_data = PlantIdService::SendRequest($plantix_data);
 //        }
         $plantix_data["image_url"] = str_replace($p, "/public", $plantix_data["image_url"]);
+        session(['$plantId_data' => $plantId_data]);
+        session(['$plantix_data' => $plantix_data]);
         return view("plant.result", ['plantix_data' => $plantix_data], ['plantId_data' => $plantId_data]);
     }
 

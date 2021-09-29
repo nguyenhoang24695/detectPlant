@@ -95,9 +95,9 @@
                 <div class="lg-col-bg">
                     <div class="lg-col-wrt2">
                         No Content
-                        {{--                        <a target="_blank" class="soc-lnk" href="http://dribbble.com/">Dribbble</a>,--}}
-                        {{--                        <a target="_blank" class="soc-lnk" href="http://instagram.com/">Instagram</a> or--}}
-                        {{--                        <a target="_blank" class="soc-lnk" href="http://behance.com/">Behance</a>.--}}
+                        {{--                        <a target="_blank" class="soc-lnk" href="#">Dribbble</a>,--}}
+                        {{--                        <a target="_blank" class="soc-lnk" href="#">Instagram</a> or--}}
+                        {{--                        <a target="_blank" class="soc-lnk" href="#">Behance</a>.--}}
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
         <div class="row">
             <div class="col-md-6 col-xs-12">
                 <div class="prjct-bg">
-                    <a target="blank" href="https://unsplash.com/photos/BP3XOsSPlGA"> <img
+                    <a target="blank" href="#"> <img
                             src="/public/img/covers/1.jpg" alt="" class="img-prjct-wrk"> </a>
                     <div class="prjct-wrt-left-wrk"></div>
                     <div class="shw-cs2"> Project Title</div>
@@ -117,7 +117,7 @@
 
             <div class="col-md-6 col-xs-12">
                 <div class="prjct-bg">
-                    <a target="blank" href="https://unsplash.com/photos/i_6Y2V81ceA"> <img
+                    <a target="blank" href="#"> <img
                             src="/public/img/covers/2.jpg" alt="" class="img-prjct-wrk"> </a>
                     <div class="prjct-wrt-right-wrk"></div>
                     <div class="shw-cs2"> Project Title</div>
@@ -130,7 +130,7 @@
         <div class="row">
             <div class="col-md-6 col-xs-12">
                 <div class="prjct-bg">
-                    <a target="blank" href="https://unsplash.com/photos/aX6MnM_xvXo"> <img
+                    <a target="blank" href="#"> <img
                             src="/public/img/covers/3.jpg" alt="" class="img-prjct-wrk"> </a>
                     <div class="prjct-wrt-left-wrk"></div>
                     <div class="shw-cs2"> Project Title</div>
@@ -141,7 +141,7 @@
 
             <div class="col-md-6 col-xs-12">
                 <div class="prjct-bg">
-                    <a target="blank" href="https://unsplash.com/photos/qX9Ie7ieb1E"> <img
+                    <a target="blank" href="#"> <img
                             src="/public/img/covers/4.jpg" alt="" class="img-prjct-wrk"> </a>
                     <div class="prjct-wrt-right-wrk"></div>
                     <div class="shw-cs2"> Project Title</div>
@@ -154,7 +154,7 @@
         <div class="row">
             <div class="col-md-6 col-xs-12">
                 <div class="prjct-bg">
-                    <a target="blank" href="https://unsplash.com/photos/5E5N49RWtbA"> <img
+                    <a target="blank" href="#"> <img
                             src="/public/img/covers/5.jpg" alt="" class="img-prjct-wrk"> </a>
                     <div class="prjct-wrt-left-wrk"></div>
                     <div class="shw-cs2"> Project Title</div>
@@ -165,7 +165,7 @@
 
             <div class="col-md-6 col-xs-12">
                 <div class="prjct-bg">
-                    <a target="blank" href="https://unsplash.com/photos/GCQaYDCQwgc"> <img
+                    <a target="blank" href="#"> <img
                             src="/public/img/covers/6.jpg" alt="" class="img-prjct-wrk"> </a>
                     <div class="prjct-wrt-right-wrk"></div>
                     <div class="shw-cs2"> Project Title</div>
