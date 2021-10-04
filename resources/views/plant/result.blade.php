@@ -40,6 +40,14 @@
                     @else
                         <h2 class="fade-anime-bottom"> {{$plantId_data[0]["plant_name"]}} </h2>
                     @endif
+                    <h1 class="fade-anime-top"> Tên cây trồng chuẩn hóa quốc tế</h1>
+                    @if($plantId_data[0]["plant_details"]["global_name"] != null)
+
+                            <h2 class="fade-anime-bottom"> {{$plantId_data[0]["plant_details"]["global_name"]}} </h2>
+
+                    @else
+                        <h2 class="fade-anime-bottom"> Không có trong cơ sở dữ liệu </h2>
+                    @endif
                 </div>
             </div>
         </div>
@@ -98,7 +106,7 @@
                 <div class="col-md-12 xs-col-12">
                     <div class="lg-col-bg">
                         <div class="lg-col-wrt2">
-                            No Content
+                            {{$plantId_data[0]["plant_details"]["wiki_description"]["value"]}}
                             {{--                        <a target="_blank" class="soc-lnk" href="#">Dribbble</a>,--}}
                             {{--                        <a target="_blank" class="soc-lnk" href="#">Instagram</a> or--}}
                             {{--                        <a target="_blank" class="soc-lnk" href="#">Behance</a>.--}}

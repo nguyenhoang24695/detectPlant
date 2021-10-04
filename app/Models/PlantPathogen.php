@@ -16,7 +16,7 @@ class PlantPathogen extends Model
     protected $table = 'plant_pathogen';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'plant_id',
+        'peat_id',
         'name',
         'name_en',
         'pathogen_class',

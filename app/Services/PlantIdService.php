@@ -10,6 +10,7 @@ namespace App\Services;
 
 
 use App\Constants\PlantIdConstant;
+use App\Models\PlantData;
 use GuzzleHttp\Client;
 
 class PlantIdService
@@ -45,7 +46,18 @@ class PlantIdService
      */
     public static function ProcessData($plantixData, $raw_data)
     {
-        return $raw_data["suggestions"];
+        $result = $raw_data["suggestions"];
+        foreach ($result as $key => $item) {
+            $plant_data = PlantData::query()
+                ->where('scientific_name_with_author','like',$item["plant_details"]["scientific_name"].'%')
+                ->first();
+
+            if (isset($plant_data)){
+                $plant_data = $plant_data->toArray();
+                $result[$key]["plant_details"]["global_name"] = $plant_data["common_name"];
+            }
+        }
+        return $result;
     }
 
     static function ImageToBase64($image): string

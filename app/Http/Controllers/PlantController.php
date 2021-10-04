@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PlantData;
 use App\Services\PlantIdService;
 use App\Services\PlantixServices;
 use Illuminate\Http\Request;
@@ -58,7 +59,18 @@ class PlantController extends Controller
     {
         $image = $request->file('picture');
         if (session('image_name') != null && session('image_name') == $image->getClientOriginalName() && session('$plantix_data') !== null) {
-            return view("plant.result", ['plantix_data' => session('$plantix_data')], ['plantId_data' => session('$plantId_data')]);
+            $result = session('$plantId_data');
+            foreach ($result as $key => $item) {
+                $plant_data = PlantData::query()
+                    ->where('scientific_name_with_author','like',$item["plant_details"]["scientific_name"].'%')
+                    ->where('common_name','!=',"")
+                    ->first();
+                if (isset($plant_data)){
+                    $plant_data = $plant_data->toArray();
+                    $result[$key]["plant_details"]["global_name"] = $plant_data["common_name"];
+                }
+            }
+            return view("plant.result", ['plantix_data' => session('$plantix_data')], ['plantId_data' => $result]);
         }
         session(["image_name" => $image->getClientOriginalName()]);
         $plantix_data = PlantixServices::SendRequest($image);

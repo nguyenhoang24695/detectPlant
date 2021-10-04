@@ -76,7 +76,7 @@ class PlantixServices
                 if ($res["peat_id"] == $prob["peat_id"]) {
                     $response[$key]["probability"] = $prob["probability"];
                 }
-                $plant = PlantPathogen::query()->where("plant_id", "=", $res["peat_id"])->first();
+                $plant = PlantPathogen::query()->where("peat_id", "=", $res["peat_id"])->first();
                 if ($plant != null) {
                     $response[$key]["name_vi"] = $plant["name"];
                 }
