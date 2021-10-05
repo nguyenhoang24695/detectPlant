@@ -103,12 +103,22 @@
 
         </div>
         <!--- THE END ABOUT CLIENT --->
+<script>
+    (function() {
+        'use strict';
+        var compacted = document.querySelectorAll('.sf-dump-compact');
 
+        for (var i = 0; i < compacted.length; i++) {
+            compacted[i].className = 'sf-dump-expanded';
+        }
+
+    })();
+</script>
         <!--- HERO HEADER WORK SLIDER --->
         <div class="row">
             <div class="col-md-12 xs-col-12">
                 <div class="lg-col-bg">
-                    <div class="lg-col-wrt2">
+                    <div class="">
                         {{$plantId_data[0]["plant_details"]["wiki_description"]["value"] ?? dd($plantix_data)}}
                         {{--                        <a target="_blank" class="soc-lnk" href="#">Dribbble</a>,--}}
                         {{--                        <a target="_blank" class="soc-lnk" href="#">Instagram</a> or--}}
