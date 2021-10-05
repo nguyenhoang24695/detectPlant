@@ -58,30 +58,31 @@ class PlantController extends Controller
     public function show(Request $request)
     {
         $image = $request->file('picture');
-        if (session('image_name') != null && session('image_name') == $image->getClientOriginalName() && session('$plantix_data') !== null) {
-            $result = session('$plantId_data');
-            foreach ($result as $key => $item) {
-                $plant_data = PlantData::query()
-                    ->where('scientific_name_with_author','like',$item["plant_details"]["scientific_name"].'%')
-                    ->where('common_name','!=',"")
-                    ->first();
-                if (isset($plant_data)){
-                    $plant_data = $plant_data->toArray();
-                    $result[$key]["plant_details"]["global_name"] = $plant_data["common_name"];
-                }
-            }
-            return view("plant.result", ['plantix_data' => session('$plantix_data')], ['plantId_data' => $result]);
-        }
+//        if (session('image_name') != null && session('image_name') == $image->getClientOriginalName() && session('$plantix_data') !== null) {
+//            $result = session('$plantId_data');
+//            foreach ($result as $key => $item) {
+//                $plant_data = PlantData::query()
+//                    ->where('scientific_name_with_author','like',$item["plant_details"]["scientific_name"].'%')
+//                    ->where('common_name','!=',"")
+//                    ->first();
+//                if (isset($plant_data)){
+//                    $plant_data = $plant_data->toArray();
+//                    $result[$key]["plant_details"]["global_name"] = $plant_data["common_name"];
+//                }
+//            }
+//            return view("plant.result", ['plantix_data' => session('$plantix_data')], ['plantId_data' => $result]);
+//        }
         session(["image_name" => $image->getClientOriginalName()]);
         $plantix_data = PlantixServices::SendRequest($image);
 //        if ($data["plant_net"][0]["name"] == "ORNAMENTAL") {
         $p = public_path();
-        $plantId_data = PlantIdService::SendRequest($plantix_data);
+//        $plantId_data = PlantIdService::SendRequest($plantix_data);
 //        }
         $plantix_data["image_url"] = str_replace($p, "", $plantix_data["image_url"]);
-        session(['$plantId_data' => $plantId_data]);
+//        session(['$plantId_data' => $plantId_data]);
         session(['$plantix_data' => $plantix_data]);
-        return view("plant.result", ['plantix_data' => $plantix_data], ['plantId_data' => $plantId_data]);
+//        return view("plant.result", ['plantix_data' => $plantix_data], ['plantId_data' => $plantId_data]);
+        return view("plant.result", ['plantix_data' => $plantix_data]);
     }
 
     /**

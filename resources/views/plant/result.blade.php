@@ -30,7 +30,7 @@
                 <div class="hero-bg">
                     <h1 class="fade-anime-top"> Nhận diện cây trồng </h1>
                     <h1 class="fade-anime-top"> Tên cây trồng </h1>
-                    @if($plantId_data[0]["plant_details"]["common_names"] != null && count($plantId_data[0]["plant_details"]["common_names"]) > 0)
+                    @if(isset($plantId_data)&&$plantId_data[0]["plant_details"]["common_names"] != null && count($plantId_data[0]["plant_details"]["common_names"]) > 0)
                         @foreach($plantId_data[0]["plant_details"]["common_names"] as $key => $name_vi)
                             <h2 class="fade-anime-bottom"> {{$name_vi}} </h2>
                             @if($key >= 0)
@@ -38,15 +38,17 @@
                             @endif
                         @endforeach
                     @else
-                        <h2 class="fade-anime-bottom"> {{$plantId_data[0]["plant_name"]}} </h2>
+{{--                        <h2 class="fade-anime-bottom"> {{$plantId_data[0]["plant_name"]}} </h2>--}}
+                        <h2 class="fade-anime-bottom"> {{$plantix_data["plant_net"][0]["name"]}} </h2>
                     @endif
                     <h1 class="fade-anime-top"> Tên cây trồng chuẩn hóa quốc tế</h1>
-                    @if(isset($plantId_data[0]["plant_details"]["global_name"]) && $plantId_data[0]["plant_details"]["global_name"] != null)
+                    @if(isset($plantId_data)&&isset($plantId_data[0]["plant_details"]["global_name"]) && $plantId_data[0]["plant_details"]["global_name"] != null)
 
                         <h2 class="fade-anime-bottom"> {{$plantId_data[0]["plant_details"]["global_name"]}} </h2>
 
                     @else
-                        <h2 class="fade-anime-bottom"> Không có trong cơ sở dữ liệu </h2>
+{{--                        <h2 class="fade-anime-bottom"> Không có trong cơ sở dữ liệu </h2>--}}
+                        <h2 class="fade-anime-bottom">  </h2>
                     @endif
                 </div>
             </div>
@@ -107,7 +109,7 @@
             <div class="col-md-12 xs-col-12">
                 <div class="lg-col-bg">
                     <div class="lg-col-wrt2">
-                        {{$plantId_data[0]["plant_details"]["wiki_description"]["value"]}}
+                        {{$plantId_data[0]["plant_details"]["wiki_description"]["value"] ?? dd($plantix_data)}}
                         {{--                        <a target="_blank" class="soc-lnk" href="#">Dribbble</a>,--}}
                         {{--                        <a target="_blank" class="soc-lnk" href="#">Instagram</a> or--}}
                         {{--                        <a target="_blank" class="soc-lnk" href="#">Behance</a>.--}}
