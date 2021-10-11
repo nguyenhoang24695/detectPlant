@@ -14,7 +14,7 @@ class CreateMstCropTable extends Migration
     public function up()
     {
         Schema::create('mst_crop', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->increments('id');
             $table->string('common_name')->nullable();
             $table->string('scientific_name', 512)->nullable();
             $table->string('family')->nullable();

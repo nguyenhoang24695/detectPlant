@@ -11,29 +11,22 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class CropPathogenStage
+ * Class MstInstructionDrug
  * 
  * @property int $id
- * @property int|null $crop_pathogen_id
- * @property int|null $crop_category_stage_id
+ * @property string|null $name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  *
  * @package App\Models
  */
-class CropPathogenStage extends Model
+class MstInstructionDrug extends Model
 {
 	use SoftDeletes;
-	protected $table = 'crop_pathogen_stage';
-
-	protected $casts = [
-		'crop_pathogen_id' => 'int',
-		'crop_category_stage_id' => 'int'
-	];
+	protected $table = 'mst_instruction_drug';
 
 	protected $fillable = [
-		'crop_pathogen_id',
-		'crop_category_stage_id'
+		'name'
 	];
 }

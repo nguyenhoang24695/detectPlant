@@ -14,7 +14,7 @@ class CreatePlantProtectionProductTable extends Migration
     public function up()
     {
         Schema::create('plant_protection_product', function (Blueprint $table) {
-            $table->integer('id', true);
+            $table->increments('id');
             $table->integer('common_name_manager_id')->nullable();
             $table->string('common_name', 1024)->nullable();
             $table->string('trade_name', 1024)->nullable();
@@ -22,7 +22,7 @@ class CreatePlantProtectionProductTable extends Migration
             $table->string('applicant', 1024)->nullable();
             $table->tinyInteger('status')->nullable();
             $table->timestamps();
-            $table->timestamp('delated_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

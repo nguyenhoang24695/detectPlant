@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCropPathogenTable extends Migration
+class CreateMstPathogenTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,17 @@ class CreateCropPathogenTable extends Migration
      */
     public function up()
     {
-        Schema::create('crop_pathogen', function (Blueprint $table) {
+        Schema::create('mst_pathogen', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('crop_id')->nullable();
-            $table->integer('pathoden_id')->nullable();
+            $table->string('peat_id', 10)->nullable();
+            $table->string('name')->nullable();
+            $table->string('name_en')->nullable();
+            $table->string('pathogen_class', 10)->nullable();
+            $table->string('scientific_name')->nullable();
             $table->string('symptom', 1024)->nullable();
-            $table->string('cause', 1024)->nullable();
             $table->string('recognition', 1024)->nullable();
-            $table->string('method_manual')->nullable();
+            $table->string('cause', 1024)->nullable();
+            $table->string('method_general')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +36,6 @@ class CreateCropPathogenTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('crop_pathogen');
+        Schema::dropIfExists('mst_pathogen');
     }
 }

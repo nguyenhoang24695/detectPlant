@@ -14,9 +14,9 @@ class CreatePathogenInstructionDrugTable extends Migration
     public function up()
     {
         Schema::create('pathogen_instruction_drug', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->increments('id');
             $table->integer('pathogen_id')->nullable();
-            $table->integer('instruction_drug_id')->nullable();
+            $table->integer('mst_instruction_drug_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

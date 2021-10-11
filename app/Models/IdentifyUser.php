@@ -30,11 +30,9 @@ class IdentifyUser extends Model
 {
 	use SoftDeletes;
 	protected $table = 'identify_user';
-	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
-		'id' => 'int',
 		'user_id' => 'int',
 		'image' => 'int',
 		'latitude' => 'int',

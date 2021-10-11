@@ -54,30 +54,21 @@ class PlantController extends Controller
      *
      * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function show(Request $request)
     {
         $image = $request->file('picture');
-//        if (session('image_name') != null && session('image_name') == $image->getClientOriginalName() && session('$plantix_data') !== null) {
-//            $result = session('$plantId_data');
-//            foreach ($result as $key => $item) {
-//                $plant_data = PlantData::query()
-//                    ->where('scientific_name_with_author','like',$item["plant_details"]["scientific_name"].'%')
-//                    ->where('common_name','!=',"")
-//                    ->first();
-//                if (isset($plant_data)){
-//                    $plant_data = $plant_data->toArray();
-//                    $result[$key]["plant_details"]["global_name"] = $plant_data["common_name"];
-//                }
-//            }
-//            return view("plant.result", ['plantix_data' => session('$plantix_data')], ['plantId_data' => $result]);
-//        }
+        $sha = sha1_file($image);
+        dd($sha);
         session(["image_name" => $image->getClientOriginalName()]);
-        $plantix_data = PlantixServices::SendRequest($image);
-//        if ($data["plant_net"][0]["name"] == "ORNAMENTAL") {
-        $p = public_path();
-//        $plantId_data = PlantIdService::SendRequest($plantix_data);
-//        }
+
+        //Dữ liệu trả về từ Plantix service
+        $plantix_data = PlantixServices::ImageAnalysis($image);
+
+        //Dữ liệu trả về từ plantId
+        $plantId_data = PlantIdService::SendRequest($plantix_data["image_url"]);
+
         $plantix_data["image_url"] = str_replace($p, "", $plantix_data["image_url"]);
 //        session(['$plantId_data' => $plantId_data]);
         session(['$plantix_data' => $plantix_data]);

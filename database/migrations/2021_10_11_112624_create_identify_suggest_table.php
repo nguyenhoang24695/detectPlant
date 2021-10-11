@@ -14,7 +14,7 @@ class CreateIdentifySuggestTable extends Migration
     public function up()
     {
         Schema::create('identify_suggest', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->increments('id');
             $table->integer('identify_user_id')->nullable();
             $table->string('scientific_name')->nullable();
             $table->timestamps();

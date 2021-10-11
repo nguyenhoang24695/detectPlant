@@ -14,7 +14,7 @@ class CreateCommonNameManagerTable extends Migration
     public function up()
     {
         Schema::create('common_name_manager', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->increments('id');
             $table->integer('group_id')->nullable();
             $table->integer('common_name_id')->nullable();
             $table->string('common_name', 1024)->nullable();

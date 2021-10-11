@@ -14,7 +14,7 @@ class CreateIdentifyUserTable extends Migration
     public function up()
     {
         Schema::create('identify_user', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->increments('id');
             $table->integer('user_id')->nullable();
             $table->integer('image')->nullable();
             $table->integer('latitude')->nullable();

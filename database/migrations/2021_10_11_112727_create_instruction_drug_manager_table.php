@@ -13,8 +13,8 @@ class CreateInstructionDrugManagerTable extends Migration
      */
     public function up()
     {
-        Schema::create('instruction_drug_manager', function (Blueprint $table) {
-            $table->integer('id')->primary();
+        Schema::create('mst_instruction_drug', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('name')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -28,6 +28,6 @@ class CreateInstructionDrugManagerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('instruction_drug_manager');
+        Schema::dropIfExists('mst_instruction_drug');
     }
 }

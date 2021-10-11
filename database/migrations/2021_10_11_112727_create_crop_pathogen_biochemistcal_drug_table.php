@@ -14,9 +14,9 @@ class CreateCropPathogenBiochemistcalDrugTable extends Migration
     public function up()
     {
         Schema::create('crop_pathogen_biochemistcal_drug', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->increments('id');
             $table->integer('crop_pathoden_id')->nullable();
-            $table->integer('plant_protection_product')->nullable();
+            $table->integer('plant_protection_product_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->tinyInteger('type')->nullable();

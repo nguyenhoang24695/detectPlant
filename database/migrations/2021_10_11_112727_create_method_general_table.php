@@ -13,8 +13,8 @@ class CreateMethodGeneralTable extends Migration
      */
     public function up()
     {
-        Schema::create('method_general', function (Blueprint $table) {
-            $table->integer('id')->primary();
+        Schema::create('mst_method_general', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('name')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -28,6 +28,6 @@ class CreateMethodGeneralTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('method_general');
+        Schema::dropIfExists('mst_method_general');
     }
 }

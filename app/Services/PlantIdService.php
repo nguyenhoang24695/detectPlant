@@ -18,13 +18,13 @@ class PlantIdService
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function SendRequest($data)
+    public static function SendRequest($image_url)
     {
         $client = new Client(['base_uri' => PlantIdConstant::BASE_URL]);;
         $response = $client->request('POST', PlantIdConstant::UPLOAD_URL,
             [
                 'json' => [
-                    "images" => [PlantIdService::ImageToBase64($data["image_url"])],
+                    "images" => [PlantIdService::ImageToBase64($image_url)],
                     "modifiers" => ["crops_medium"],
                     "plant_details" => ["common_names", "url", "wiki_description"],
                     "plant_language" => "vi"
@@ -35,7 +35,7 @@ class PlantIdService
                 ]
             ]);
         $raw_data = $response->getBody()->getContents();
-        return PlantIdService::ProcessData($data, json_decode($raw_data, true));
+        return PlantIdService::ProcessData(json_decode($raw_data, true));
     }
 
     /**
@@ -44,15 +44,15 @@ class PlantIdService
      * @param $raw_data
      * @return mixed
      */
-    public static function ProcessData($plantixData, $raw_data)
+    public static function ProcessData($raw_data)
     {
         $result = $raw_data["suggestions"];
         foreach ($result as $key => $item) {
             $plant_data = PlantData::query()
-                ->where('scientific_name_with_author','like',$item["plant_details"]["scientific_name"].'%')
+                ->where('scientific_name_with_author', 'like', $item["plant_details"]["scientific_name"] . '%')
                 ->first();
 
-            if (isset($plant_data)){
+            if (isset($plant_data)) {
                 $plant_data = $plant_data->toArray();
                 $result[$key]["plant_details"]["global_name"] = $plant_data["common_name"];
             }

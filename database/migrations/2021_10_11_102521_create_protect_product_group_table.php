@@ -14,7 +14,7 @@ class CreateProtectProductGroupTable extends Migration
     public function up()
     {
         Schema::create('protect_product_group', function (Blueprint $table) {
-            $table->integer('id')->nullable();
+            $table->increments('id');
             $table->string('group_name')->nullable();
             $table->integer('parent_id')->nullable();
         });

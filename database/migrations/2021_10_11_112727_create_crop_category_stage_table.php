@@ -14,7 +14,7 @@ class CreateCropCategoryStageTable extends Migration
     public function up()
     {
         Schema::create('crop_category_stage', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->increments('id');
             $table->integer('crop_id')->nullable();
             $table->integer('category_id')->nullable();
             $table->timestamps();

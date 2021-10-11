@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCropPathogenMethodGeneralTable extends Migration
+class CreateChecksumImageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateCropPathogenMethodGeneralTable extends Migration
      */
     public function up()
     {
-        Schema::create('crop_pathogen_method_general', function (Blueprint $table) {
+        Schema::create('checksum_image', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('crop_category_stage_id')->nullable();
-            $table->integer('mst_method_general_id')->nullable();
-            $table->string('content', 1024)->nullable();
+            $table->integer('identify_user_id')->nullable();
+            $table->string('sha')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +29,6 @@ class CreateCropPathogenMethodGeneralTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('crop_pathogen_method_general');
+        Schema::dropIfExists('checksum_image');
     }
 }
