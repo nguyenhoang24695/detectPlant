@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlantDataTable extends Migration
+class CreatePathogenInstructionDrugTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreatePlantDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('plant_data', function (Blueprint $table) {
-            $table->id();
+        Schema::create('pathogen_instruction_drug', function (Blueprint $table) {
+            $table->integer('id')->primary();
+            $table->integer('pathogen_id')->nullable();
+            $table->integer('instruction_drug_id')->nullable();
             $table->timestamps();
-            $table->string('symbol');
-            $table->string('synonym_symbol');
-            $table->string('scientific_name_with_author');
-            $table->string('common_name');
-            $table->string('family');
+            $table->softDeletes();
         });
     }
 
@@ -31,6 +29,6 @@ class CreatePlantDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plant_data');
+        Schema::dropIfExists('pathogen_instruction_drug');
     }
 }
