@@ -18,6 +18,8 @@ class CreateCommonNameManagerTable extends Migration
             $table->integer('group_id')->nullable();
             $table->integer('common_name_id')->nullable();
             $table->string('common_name', 1024)->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $scientific_name
  * @property float|null $probability
  * @property int|null $type
- * @property int|null $source
+ * @property int|null $note
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
@@ -36,7 +36,7 @@ class IdentifyResult extends Model
 		'identify_user_id' => 'int',
 		'probability' => 'float',
 		'type' => 'int',
-		'source' => 'string'
+		'note' => 'string'
 	];
 
 	protected $fillable = [
@@ -44,6 +44,6 @@ class IdentifyResult extends Model
 		'scientific_name',
 		'probability',
 		'type',
-		'source'
+		'note'
 	];
 }

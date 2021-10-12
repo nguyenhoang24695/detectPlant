@@ -22,7 +22,7 @@ class CommonNameManager extends Model
 {
 	protected $table = 'common_name_manager';
 
-	public $timestamps = false;
+
 
 	protected $casts = [
 		'id' => 'int',

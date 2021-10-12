@@ -16,7 +16,7 @@ class CreateCropPathogenTable extends Migration
         Schema::create('crop_pathogen', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('crop_id')->nullable();
-            $table->integer('pathoden_id')->nullable();
+            $table->integer('pathogen_id')->nullable();
             $table->string('symptom', 1024)->nullable();
             $table->string('cause', 1024)->nullable();
             $table->string('instruction',1024)->nullable();

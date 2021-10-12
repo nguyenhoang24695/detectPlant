@@ -12,10 +12,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class CropPathogen
- * 
+ *
  * @property int $id
  * @property int|null $crop_id
- * @property int|null $pathoden_id
+ * @property int|null $pathogen_id
  * @property string|null $symptom
  * @property string|null $cause
  * @property string|null $recognition
@@ -33,12 +33,12 @@ class CropPathogen extends Model
 
 	protected $casts = [
 		'crop_id' => 'int',
-		'pathoden_id' => 'int'
+		'pathogen_id' => 'int'
 	];
 
 	protected $fillable = [
 		'crop_id',
-		'pathoden_id',
+		'pathogen_id',
 		'symptom',
 		'cause',
 		'recognition',

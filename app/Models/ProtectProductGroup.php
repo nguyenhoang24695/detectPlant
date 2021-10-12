@@ -21,7 +21,7 @@ class ProtectProductGroup extends Model
 {
 	protected $table = 'protect_product_group';
 
-	public $timestamps = false;
+
 
 	protected $casts = [
 		'id' => 'int',

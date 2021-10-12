@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class PlantProtectionProduct
- * 
+ *
  * @property int $id
  * @property int|null $common_name_manager_id
  * @property string|null $common_name
@@ -25,26 +25,22 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class PlantProtectionProduct extends Model
+class CropProtectionProduct extends Model
 {
-	protected $table = 'plant_protection_product';
+    protected $table = 'crop_protection_product';
 
-	protected $casts = [
-		'common_name_manager_id' => 'int',
-		'status' => 'int'
-	];
+    protected $casts = [
+        'common_name_manager_id' => 'int',
+        'status' => 'int'
+    ];
 
-	protected $dates = [
-		'delated_at'
-	];
 
-	protected $fillable = [
-		'common_name_manager_id',
-		'common_name',
-		'trade_name',
-		'pest_crop',
-		'applicant',
-		'status',
-		'delated_at'
-	];
+    protected $fillable = [
+        'common_name_manager_id',
+        'common_name',
+        'trade_name',
+        'pest_crop',
+        'applicant',
+        'status'
+    ];
 }

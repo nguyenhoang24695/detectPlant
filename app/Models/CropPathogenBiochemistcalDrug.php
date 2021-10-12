@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class CropPathogenBiochemistcalDrug
  *
  * @property int $id
- * @property int|null $crop_pathoden_id
- * @property int|null $plant_protection_product
+ * @property int|null $crop_pathogen_id
+ * @property int|null $crop_protection_product
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
@@ -26,19 +26,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CropPathogenBiochemistcalDrug extends Model
 {
 	use SoftDeletes;
-	protected $table = 'crop_pathogen_biochemistcal_drug';
+	protected $table = 'crop_pathogen_biochemical_drug';
 
 
 	protected $casts = [
 		'id' => 'int',
-		'crop_pathoden_id' => 'int',
-		'plant_protection_product' => 'int',
+		'crop_pathogen_id' => 'int',
+		'crop_protection_product_id' => 'int',
 		'type' => 'int'
 	];
 
 	protected $fillable = [
-		'crop_pathoden_id',
-		'plant_protection_product',
+		'crop_pathogen_id',
+		'crop_protection_product_id',
 		'type'
 	];
 }
