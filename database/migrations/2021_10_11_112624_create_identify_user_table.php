@@ -22,7 +22,7 @@ class CreateIdentifyUserTable extends Migration
             $table->float('air_temperature', 10, 0)->nullable();
             $table->tinyInteger('crop_indentify_status')->nullable();
             $table->tinyInteger('pathogen_indentify_status')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
             $table->softDeletes();
         });
     }
