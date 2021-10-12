@@ -13,14 +13,15 @@ use App\Models\ChecksumImage;
 
 class FileUtil
 {
-    public static function CheckSHAImage($file)
+    public static function SaveImageToPublicFolder($image)
     {
-        $sha = sha1_file($file);
-        $result = ChecksumImage::query()->where('sha', $sha)->first();
-        if (isset($result)) {
-            return $result;
-        } else {
-            return null;
-        }
+        $image->move(public_path() . "/", $image->getClientOriginalName());
+        $image_url = public_path() . "/" . $image->getClientOriginalName();
+        return [$image_url, "/" . $image->getClientOriginalName()];
+    }
+
+    public static function SHAFile($file)
+    {
+        return sha1_file($file);
     }
 }

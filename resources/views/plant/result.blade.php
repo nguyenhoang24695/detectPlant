@@ -97,7 +97,7 @@
 
             <div class="col-md-6 col-xs-12">
                 <div class="lg-col-bg2">
-                    <img src="{{asset($plantix_data["public_image"])}}" alt="" class="img-lg-col2">
+                    <img src="{{asset($image_url)}}" alt="" class="img-lg-col2">
                 </div>
             </div>
 

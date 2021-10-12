@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class CropPathogenBiochemistcalDrug
- * 
+ *
  * @property int $id
  * @property int|null $crop_pathoden_id
  * @property int|null $plant_protection_product
@@ -27,7 +27,7 @@ class CropPathogenBiochemistcalDrug extends Model
 {
 	use SoftDeletes;
 	protected $table = 'crop_pathogen_biochemistcal_drug';
-	public $incrementing = false;
+
 
 	protected $casts = [
 		'id' => 'int',

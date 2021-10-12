@@ -20,10 +20,7 @@ class CreateMstPathogenTable extends Migration
             $table->string('name_en')->nullable();
             $table->string('pathogen_class', 10)->nullable();
             $table->string('scientific_name')->nullable();
-            $table->string('symptom', 1024)->nullable();
             $table->string('recognition', 1024)->nullable();
-            $table->string('cause', 1024)->nullable();
-            $table->string('method_general')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

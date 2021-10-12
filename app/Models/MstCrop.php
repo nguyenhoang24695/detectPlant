@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class MstCrop
- * 
+ *
  * @property int $id
  * @property string|null $common_name
  * @property string|null $scientific_name
@@ -29,7 +29,7 @@ class MstCrop extends Model
 {
 	use SoftDeletes;
 	protected $table = 'mst_crop';
-	public $incrementing = false;
+
 
 	protected $casts = [
 		'id' => 'int'

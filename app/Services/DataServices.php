@@ -14,19 +14,24 @@ use Illuminate\Support\Facades\Session;
 
 class DataServices
 {
-    public static function CreateUserIdentifyTest($plantix_data)
+    public static function CreateUserIdentifyTest(string $image_public_url): IdentifyUser
     {
         $user = Session::get('user');
         // Tạo identiuser ảo
-        $identifu_user = new IdentifyUser();
-        $identifu_user->user_id = $user->id;
-        $identifu_user->latitude = 120;
-        $identifu_user->longitude = 120;
-        $identifu_user->pathogen_indentify_status = 1;
-        $identifu_user->image = $plantix_data["image_url"];
-        $identifu_user->air_temperature = 35;
+        $identifyUser = new IdentifyUser();
+        $identifyUser->user_id = $user->id;
+        $identifyUser->latitude = 120;
+        $identifyUser->longitude = 120;
+        $identifyUser->pathogen_indentify_status = 1;
+        $identifyUser->image = $image_public_url;
+        $identifyUser->air_temperature = 35;
 
-        $identifu_user->save();
+        $identifyUser->save();
+        return $identifyUser;
+
+    }
+
+    public static function ProcessIdentifyData($plantix_data,$planId_data){
 
     }
 }

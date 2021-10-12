@@ -19,7 +19,7 @@ class CreateIdentifyResultTable extends Migration
             $table->string('scientific_name')->nullable();
             $table->float('probability', 10, 0)->nullable();
             $table->tinyInteger('type')->nullable();
-            $table->integer('source')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

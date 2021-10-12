@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class CropCategoryStage
- * 
+ *
  * @property int $id
  * @property int|null $crop_id
  * @property int|null $category_id
@@ -26,7 +26,7 @@ class CropCategoryStage extends Model
 {
 	use SoftDeletes;
 	protected $table = 'crop_category_stage';
-	public $incrementing = false;
+
 
 	protected $casts = [
 		'id' => 'int',

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class MethodGeneral
- * 
+ *
  * @property int $id
  * @property string|null $name
  * @property Carbon|null $created_at
@@ -25,7 +25,7 @@ class MethodGeneral extends Model
 {
 	use SoftDeletes;
 	protected $table = 'method_general';
-	public $incrementing = false;
+
 
 	protected $casts = [
 		'id' => 'int'

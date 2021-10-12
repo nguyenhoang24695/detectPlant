@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class IdentifySuggest
- * 
+ *
  * @property int $id
  * @property int|null $identify_user_id
  * @property string|null $scientific_name
@@ -26,7 +26,6 @@ class IdentifySuggest extends Model
 {
 	use SoftDeletes;
 	protected $table = 'identify_suggest';
-	public $incrementing = false;
 
 	protected $casts = [
 		'id' => 'int',
