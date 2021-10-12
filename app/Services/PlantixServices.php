@@ -47,10 +47,6 @@ class PlantixServices
         $response = $client->request('POST', PlantixConstant::IMAGE_ANALYSIS_URL, [
             'multipart' => [
                 [
-                    'name' => 'json',
-                    'contents' => Psr7\Utils::tryFopen(storage_path() . "/app/public/temp.json", "r")
-                ],
-                [
                     'name' => 'picture',
                     'contents' => Psr7\Utils::tryFopen($image_url, "r")
                 ]
