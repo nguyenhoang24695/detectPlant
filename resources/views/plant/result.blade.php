@@ -84,8 +84,8 @@
                             <b>Tên Virus/ Vi Khuẩn gây bệnh:</b><br>
                             {{$plantix_data["response"][0]["scientific_name"]}}
                             <br><br>
-                            <b>Độ chính xác</b><br>
-                            {{$plantix_data["response"][0]["probability"] ?? "Không xác định"}}<br>
+{{--                            <b>Độ chính xác</b><br>--}}
+{{--                            {{$plantix_data["response"][0]["probability"] ?? "Không xác định"}}<br>--}}
                             {{--                        Illustration<br>--}}
                             {{--                        Web Design<br>--}}
                             {{--                        Web Development--}}
@@ -97,7 +97,7 @@
 
             <div class="col-md-6 col-xs-12">
                 <div class="lg-col-bg2">
-                    <img src="{{asset($plantix_data["image_url"])}}" alt="" class="img-lg-col2">
+                    <img src="{{asset($plantix_data["public_image"])}}" alt="" class="img-lg-col2">
                 </div>
             </div>
 

@@ -10,7 +10,7 @@ namespace App\Services;
 
 
 use App\Constants\PlantIdConstant;
-use App\Models\PlantData;
+use App\Models\MstCrop;
 use GuzzleHttp\Client;
 
 class PlantIdService
@@ -31,7 +31,7 @@ class PlantIdService
                 ],
                 'headers' => [
                     "Content-Type" => "application/json",
-                    "Api-Key" => "QCBrW4Dpjy7hszCUa7U9keNLfxHzNPRDF5uB7qfKTiwAXqnzLI"
+                    "Api-Key" => env("PLANTID_KEY")
                 ]
             ]);
         $raw_data = $response->getBody()->getContents();
@@ -40,7 +40,6 @@ class PlantIdService
 
     /**
      * Xử lý dữ liệu nhận được từ PlantId
-     * @param $plantixData
      * @param $raw_data
      * @return mixed
      */
@@ -48,8 +47,8 @@ class PlantIdService
     {
         $result = $raw_data["suggestions"];
         foreach ($result as $key => $item) {
-            $plant_data = PlantData::query()
-                ->where('scientific_name_with_author', 'like', $item["plant_details"]["scientific_name"] . '%')
+            $plant_data = MstCrop::query()
+                ->where('scientific_name', 'like', $item["plant_details"]["scientific_name"] . '%')
                 ->first();
 
             if (isset($plant_data)) {

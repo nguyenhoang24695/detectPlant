@@ -10,11 +10,13 @@ namespace App\Services;
 
 
 use App\Constants\PlantixConstant;
+use App\Models\MstPathogen;
 use App\Models\PlantPathogen;
 use App\Utils\CommonUtil;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
+use Illuminate\Http\UploadedFile;
 
 class PlantixServices
 {
@@ -37,14 +39,12 @@ class PlantixServices
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function SendRequest($image)
+    public static function ImageAnalysis(UploadedFile $image): array
     {
-        PlantixServices::CreateIdentity($image->getClientOriginalName());
-        $type = pathinfo($image, PATHINFO_EXTENSION);
-        $image->move(public_path() ."/", "picture" . $type);
-        $image_url = public_path()  . "/picture" . $type;
+        $image->move(public_path() . "/", $image->getClientOriginalName());
+        $image_url = public_path() . "/" . $image->getClientOriginalName();
         $client = new Client(['base_uri' => PlantixConstant::BASE_URL]);;
-        $response = $client->request('POST', PlantixConstant::UPLOAD_URL, [
+        $response = $client->request('POST', PlantixConstant::IMAGE_ANALYSIS_URL, [
             'multipart' => [
                 [
                     'name' => 'json',
@@ -55,35 +55,30 @@ class PlantixServices
                     'contents' => Psr7\Utils::tryFopen($image_url, "r")
                 ]
             ],
-            'headers' => ['username' => 'PEAT', 'password' => 'v2xERzGBcrRJ6bUj']
+            'headers' => ['Api-Key' => env("PLANTIX_KEY")]
         ]);
         $raw_data = $response->getBody()->getContents();
-
         return PlantixServices::ProcessData(json_decode($raw_data, true), $image_url);
     }
 
     /**
      * Xử lý dữ liệu nhận được từ Plantix
      */
-    public static function ProcessData($data, $image_url)
+    public static function ProcessData($data, $image_url): array
     {
-        $response = $data["response"];
+        $response = $data["image_analysis"];
         $plant_net = $data["plant_net"];
-        $probability = $data["probability"];
 
         foreach ($response as $key => $res) {
-            foreach ($probability as $prob) {
-                if ($res["peat_id"] == $prob["peat_id"]) {
-                    $response[$key]["probability"] = $prob["probability"];
-                }
-                $plant = PlantPathogen::query()->where("peat_id", "=", $res["peat_id"])->first();
+
+                $plant = MstPathogen::query()->where("peat_id", "=", $res["peat_id"])->first();
                 if ($plant != null) {
                     $response[$key]["name_vi"] = $plant["name"];
                 }
-            }
-            unset($response[$key]["reference_images"]);
-            unset($response[$key]["eppo"]);
         }
-        return ["plant_net" => $plant_net, "response" => $response, "image_url" => $image_url];
+
+        //Xóa bỏ public path để tạo thành public url cho ảnh
+        $public_image = str_replace(public_path(), "", $image_url);
+        return ["plant_net" => $plant_net, "response" => $response, "image_url" => $image_url, "public_image" => $public_image];
     }
 }

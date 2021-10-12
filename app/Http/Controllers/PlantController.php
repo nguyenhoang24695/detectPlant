@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\PlantData;
 use App\Services\PlantIdService;
 use App\Services\PlantixServices;
+use App\Services\UserService;
+use App\Utils\FileUtil;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class PlantController extends Controller
 {
@@ -58,22 +61,21 @@ class PlantController extends Controller
      */
     public function show(Request $request)
     {
+        if (Session::exists('user')) {
+            $user = UserService::TestUser();
+            Session::put("user", $user);
+        }
         $image = $request->file('picture');
-        $sha = sha1_file($image);
-        dd($sha);
-        session(["image_name" => $image->getClientOriginalName()]);
-
+//        $image_check_result = FileUtil::CheckSHAImage($image);
+//        if (isset($image_check_result)) {
+//            return null;
+//        }
         //Dữ liệu trả về từ Plantix service
         $plantix_data = PlantixServices::ImageAnalysis($image);
 
         //Dữ liệu trả về từ plantId
         $plantId_data = PlantIdService::SendRequest($plantix_data["image_url"]);
-
-        $plantix_data["image_url"] = str_replace($p, "", $plantix_data["image_url"]);
-//        session(['$plantId_data' => $plantId_data]);
-        session(['$plantix_data' => $plantix_data]);
-//        return view("plant.result", ['plantix_data' => $plantix_data], ['plantId_data' => $plantId_data]);
-        return view("plant.result", ['plantix_data' => $plantix_data]);
+        return view("plant.result", ['plantix_data' => $plantix_data], ['plantId_data' => $plantId_data]);
     }
 
     /**

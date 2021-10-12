@@ -15,7 +15,7 @@ class CreateCropPathogenMethodGeneralTable extends Migration
     {
         Schema::create('crop_pathogen_method_general', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('crop_category_stage_id')->nullable();
+            $table->integer('crop_pathogen_id')->nullable();
             $table->integer('mst_method_general_id')->nullable();
             $table->string('content', 1024)->nullable();
             $table->timestamps();
