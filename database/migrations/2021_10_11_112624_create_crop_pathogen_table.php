@@ -19,7 +19,6 @@ class CreateCropPathogenTable extends Migration
             $table->integer('pathogen_id')->nullable();
             $table->string('symptom', 1024)->nullable();
             $table->string('cause', 1024)->nullable();
-            $table->string('instruction',1024)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

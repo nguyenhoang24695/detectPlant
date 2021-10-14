@@ -15,17 +15,18 @@ use App\Models\IdentifyResult;
 use App\Models\IdentifyUser;
 use App\Models\MstCrop;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Database\Eloquent\Model;
 
 class PlantIdService
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
-    public static function SendRequest(IdentifyUser $identifyUser, $image_url)
+    public static function ImageAnalysis(IdentifyUser $identifyUser, $image_url): array
     {
         $client = new Client(['base_uri' => PlantIdConstant::BASE_URL]);;
-        $response = $client->request('POST', PlantIdConstant::UPLOAD_URL,
+        $res = $client->request('POST', PlantIdConstant::UPLOAD_URL,
             [
                 'json' => [
                     "images" => [PlantIdService::ImageToBase64($image_url)],
@@ -38,41 +39,55 @@ class PlantIdService
                     "Api-Key" => env("PLANTID_KEY")
                 ]
             ]);
-        $raw_data = $response->getBody()->getContents();
+        $raw_data = $res->getBody()->getContents();
         return PlantIdService::ProcessData($identifyUser, json_decode($raw_data, true));
     }
 
     /**
      * Xử lý dữ liệu nhận được từ PlantId
      * @param $raw_data
-     * @return mixed
+     * @return array
      */
-    public static function ProcessData(IdentifyUser $identifyUser, $raw_data)
+    public static function ProcessData(IdentifyUser $identifyUser, $raw_data): array
     {
+
         $result = $raw_data["suggestions"];
+        $crop_data_list = [];
         foreach ($result as $key => $item) {
-            $plant_data = MstCrop::query()
-                ->where('scientific_name', 'like', $item["plant_details"]["scientific_name"] . '%')
+
+            // Lưu thông tin kết quả nhận diện
+            $plantId_result = new IdentifyResult();
+            $plantId_result->identify_user_id = $identifyUser->id;
+            $plantId_result->type = CommonConstant::TYPE_CROP;
+            $plantId_result->note = CommonConstant::PLANTID_STRING;
+            $plantId_result->scientific_name = $item["plant_details"]["scientific_name"];
+            $plantId_result->save();
+
+            //Lưu crop nếu chưa tồn tại trong mst_crop
+            $crop = MstCrop::query()
+                ->where('scientific_name', $item["plant_details"]["scientific_name"])
                 ->first();
+            if (!isset($crop)) {
+                $new_crop = new MstCrop();
+                $new_crop->scientific_name = $item["plant_details"]["scientific_name"];
+                $new_crop->name = $item["plant_details"]["common_names"][0] ?? '';
+                $new_crop->name_en = $item["plant_details"]["structured_name"]['genus'] . $item["plant_details"]["structured_name"]['species'];
+                $new_crop->family = $item["plant_details"]["taxonomy"]["family"] ?? '';
+                $new_crop->symbol = CommonConstant::PLANTID_STRING;
 
-            if (isset($plant_data)) {
-                $plant_data = $plant_data->toArray();
-                $result[$key]["plant_details"]["global_name"] = $plant_data["common_name"];
+                $new_crop->save();
+            } else {
+                $crop->update(['name' => $item["plant_details"]["common_names"][0] ?? '']);
             }
+            $crop_data = DataServices::GetCropDataFromFromScientificName($item["plant_details"]["scientific_name"]);
+            array_push($crop_data_list, $crop_data);
 
-            if ($key == 0) {
-
-                $plantId_result = new IdentifyResult();
-                $plantId_result->identify_user_id = $identifyUser->id;
-                $plantId_result->type = CommonConstant::TYPE_CROP;
-                $plantId_result->source = CommonConstant::PLANTID_STRING;
-                $plantId_result->scientific_name = $item["plant_details"]["scientific_name"];
-
-                $plantId_result->save();
-            }
+            //Chỉ lưu kêt quả đầu tiên nhận được từ plantId => break
+            break;
         }
+
         $identifyUser->crop_indentify_status = 1;
-        return $result;
+        return ["crop_data" => $crop_data_list];
     }
 
     static function ImageToBase64($image): string

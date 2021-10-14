@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class MstPathogen
- * 
+ *
  * @property int $id
  * @property string|null $peat_id
  * @property string|null $name
@@ -43,6 +43,7 @@ class MstPathogen extends Model
 		'symptom',
 		'recognition',
 		'cause',
-		'method_general'
+		'method_general',
+        'instruction'
 	];
 }

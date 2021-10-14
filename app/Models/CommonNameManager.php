@@ -26,13 +26,11 @@ class CommonNameManager extends Model
 
 	protected $casts = [
 		'id' => 'int',
-		'group_id' => 'int',
-		'common_name_id' => 'int'
+		'protect_product_group_id' => 'int',
 	];
 
 	protected $fillable = [
-		'group_id',
-		'common_name_id',
+		'protect_product_group_id',
 		'common_name'
 	];
 }

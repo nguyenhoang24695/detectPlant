@@ -15,9 +15,10 @@ class CreateCropPathogenBiochemistcalDrugTable extends Migration
     {
         Schema::create('crop_pathogen_biochemical_drug', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('crop_pathogen_id')->nullable();
+            $table->integer('pathogen_id')->nullable();
             $table->integer('crop_protection_product_id')->nullable();
             $table->tinyInteger('type')->nullable();
+            $table->tinyInteger('priority_flag')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

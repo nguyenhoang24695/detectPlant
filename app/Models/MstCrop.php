@@ -14,7 +14,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class MstCrop
  *
  * @property int $id
- * @property string|null $common_name
+ * @property string|null $name
+ * @property string|null $name_en
  * @property string|null $scientific_name
  * @property string|null $family
  * @property string|null $symbol
@@ -36,7 +37,8 @@ class MstCrop extends Model
 	];
 
 	protected $fillable = [
-		'common_name',
+		'name',
+		'name_en',
 		'scientific_name',
 		'family',
 		'symbol',

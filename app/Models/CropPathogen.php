@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null $pathogen_id
  * @property string|null $symptom
  * @property string|null $cause
- * @property string|null $recognition
  * @property string|null $method_manual
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -41,7 +40,6 @@ class CropPathogen extends Model
 		'pathogen_id',
 		'symptom',
 		'cause',
-		'recognition',
 		'method_manual'
 	];
 }
