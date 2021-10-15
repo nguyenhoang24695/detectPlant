@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class ProtectProductGroup
- * 
+ *
  * @property int|null $id
  * @property string|null $group_name
  * @property int|null $parent_id
@@ -20,8 +20,8 @@ use Illuminate\Database\Eloquent\Model;
 class ProtectProductGroup extends Model
 {
 	protected $table = 'protect_product_group';
-	public $incrementing = false;
-	public $timestamps = false;
+
+
 
 	protected $casts = [
 		'id' => 'int',

@@ -16,13 +16,13 @@ class CreateIdentifyUserTable extends Migration
         Schema::create('identify_user', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->nullable();
-            $table->integer('image')->nullable();
+            $table->string('image')->nullable();
             $table->integer('latitude')->nullable();
             $table->integer('longitude')->nullable();
             $table->float('air_temperature', 10, 0)->nullable();
             $table->tinyInteger('crop_indentify_status')->nullable();
             $table->tinyInteger('pathogen_indentify_status')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
             $table->softDeletes();
         });
     }

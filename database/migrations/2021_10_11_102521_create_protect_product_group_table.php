@@ -17,6 +17,8 @@ class CreateProtectProductGroupTable extends Migration
             $table->increments('id');
             $table->string('group_name')->nullable();
             $table->integer('parent_id')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class InstructionDrugManager
- * 
+ *
  * @property int $id
  * @property string|null $name
  * @property Carbon|null $created_at
@@ -25,7 +25,7 @@ class InstructionDrugManager extends Model
 {
 	use SoftDeletes;
 	protected $table = 'instruction_drug_manager';
-	public $incrementing = false;
+
 
 	protected $casts = [
 		'id' => 'int'

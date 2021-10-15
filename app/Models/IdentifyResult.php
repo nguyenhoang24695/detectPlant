@@ -12,13 +12,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class IdentifyResult
- * 
+ *
  * @property int $id
  * @property int|null $identify_user_id
  * @property string|null $scientific_name
  * @property float|null $probability
  * @property int|null $type
- * @property int|null $source
+ * @property int|null $note
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
@@ -29,14 +29,14 @@ class IdentifyResult extends Model
 {
 	use SoftDeletes;
 	protected $table = 'identify_result';
-	public $incrementing = false;
+
 
 	protected $casts = [
 		'id' => 'int',
 		'identify_user_id' => 'int',
 		'probability' => 'float',
 		'type' => 'int',
-		'source' => 'int'
+		'note' => 'string'
 	];
 
 	protected $fillable = [
@@ -44,6 +44,6 @@ class IdentifyResult extends Model
 		'scientific_name',
 		'probability',
 		'type',
-		'source'
+		'note'
 	];
 }

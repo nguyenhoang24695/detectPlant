@@ -9,13 +9,24 @@
 namespace App\Services;
 
 
+use App\Constants\CommonConstant;
 use App\Constants\PlantixConstant;
+use App\Models\CropCategoryStage;
+use App\Models\CropPathogen;
+use App\Models\CropPathogenBiochemicalDrug;
+use App\Models\CropPathogenMethodGeneral;
+use App\Models\CropPathogenStage;
+use App\Models\IdentifyResult;
+use App\Models\IdentifyUser;
 use App\Models\MstPathogen;
+use App\Models\PathogenInstructionDrug;
 use App\Models\PlantPathogen;
 use App\Utils\CommonUtil;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 
 class PlantixServices
@@ -37,14 +48,12 @@ class PlantixServices
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
-    public static function ImageAnalysis(UploadedFile $image): array
+    public static function ImageAnalysis(IdentifyUser $identifyUser, string $image_url): array
     {
-        $image->move(public_path() . "/", $image->getClientOriginalName());
-        $image_url = public_path() . "/" . $image->getClientOriginalName();
-        $client = new Client(['base_uri' => PlantixConstant::BASE_URL]);;
-        $response = $client->request('POST', PlantixConstant::IMAGE_ANALYSIS_URL, [
+        $client = new Client(['base_uri' => PlantixConstant::BASE_URL]);
+        $res = $client->request('POST', PlantixConstant::IMAGE_ANALYSIS_URL, [
             'multipart' => [
                 [
                     'name' => 'picture',
@@ -53,28 +62,35 @@ class PlantixServices
             ],
             'headers' => ['Api-Key' => env("PLANTIX_KEY")]
         ]);
-        $raw_data = $response->getBody()->getContents();
-        return PlantixServices::ProcessData(json_decode($raw_data, true), $image_url);
+        $raw_data = $res->getBody()->getContents();
+        return PlantixServices::ProcessData(json_decode($raw_data, true), $identifyUser);
     }
 
     /**
      * Xử lý dữ liệu nhận được từ Plantix
      */
-    public static function ProcessData($data, $image_url): array
+    public static function ProcessData($data, IdentifyUser $identifyUser): array
     {
-        $response = $data["image_analysis"];
-        $plant_net = $data["plant_net"];
+        $res = $data["image_analysis"];
+        $pathogen_data_list = [];
 
-        foreach ($response as $key => $res) {
+        foreach ($res as $key => $value) {
 
-                $plant = MstPathogen::query()->where("peat_id", "=", $res["peat_id"])->first();
-                if ($plant != null) {
-                    $response[$key]["name_vi"] = $plant["name"];
-                }
+            $plantix_result = new IdentifyResult();
+            $plantix_result->identify_user_id = $identifyUser->id;
+            $plantix_result->type = CommonConstant::TYPE_PATHOGEN;
+            $plantix_result->note = CommonConstant::PLANTIX_STRING;
+            $plantix_result->scientific_name = $value["scientific_name"];
+
+            $plantix_result->save();
+
+            // Lấy dữ liệu bệnh
+            $pathogen_data = DataServices::GetDiseaseDataFromScientificName($value["scientific_name"]);
+            array_push($pathogen_data_list, $pathogen_data);
+
         }
+        $identifyUser->pathogen_indentify_status = $data["recognized_bool"] ? 1 : 0;
 
-        //Xóa bỏ public path để tạo thành public url cho ảnh
-        $public_image = str_replace(public_path(), "", $image_url);
-        return ["plant_net" => $plant_net, "response" => $response, "image_url" => $image_url, "public_image" => $public_image];
+        return ["pathogen_data" => $pathogen_data_list];
     }
 }

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class CommonNameManager
- * 
+ *
  * @property int $id
  * @property int|null $group_id
  * @property int|null $common_name_id
@@ -21,18 +21,16 @@ use Illuminate\Database\Eloquent\Model;
 class CommonNameManager extends Model
 {
 	protected $table = 'common_name_manager';
-	public $incrementing = false;
-	public $timestamps = false;
+
+
 
 	protected $casts = [
 		'id' => 'int',
-		'group_id' => 'int',
-		'common_name_id' => 'int'
+		'protect_product_group_id' => 'int',
 	];
 
 	protected $fillable = [
-		'group_id',
-		'common_name_id',
+		'protect_product_group_id',
 		'common_name'
 	];
 }

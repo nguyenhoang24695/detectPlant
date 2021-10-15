@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class IdentifyUser
- * 
+ *
  * @property int $id
  * @property int|null $user_id
  * @property int|null $image
@@ -30,11 +30,10 @@ class IdentifyUser extends Model
 {
 	use SoftDeletes;
 	protected $table = 'identify_user';
-	public $timestamps = false;
 
 	protected $casts = [
 		'user_id' => 'int',
-		'image' => 'int',
+		'image' => 'string',
 		'latitude' => 'int',
 		'longitude' => 'int',
 		'air_temperature' => 'float',
