@@ -12,6 +12,7 @@ namespace App\Services;
 use App\Constants\CommonConstant;
 use App\Constants\PlantixConstant;
 use App\Models\CropCategoryStage;
+use App\Models\CropManager;
 use App\Models\CropPathogen;
 use App\Models\CropPathogenBiochemicalDrug;
 use App\Models\CropPathogenMethodGeneral;
@@ -71,6 +72,24 @@ class PlantixServices
      */
     public static function ProcessData($data, IdentifyUser $identifyUser): array
     {
+        // Lấy dữ liệu cây nếu plantix trả về chính xác cây
+        $crop = CropManager::query()
+            ->where('host', $data["plant_net"][0]["name"])
+            ->get()
+            ->first();
+        if (isset($crop)) {
+
+            $crop_data_list = DataServices::GetCropDataFromFromScientificName($crop->science_name);
+            $plantix_result = new IdentifyResult();
+            $plantix_result->identify_user_id = $identifyUser->id;
+            $plantix_result->type = CommonConstant::TYPE_CROP;
+            $plantix_result->note = CommonConstant::PLANTIX_STRING;
+            $plantix_result->scientific_name = $crop["scientific_name"];
+
+            $plantix_result->save();
+        }
+
+        // Dữ liệu bệnh
         $res = $data["image_analysis"];
         $pathogen_data_list = [];
 
@@ -90,7 +109,10 @@ class PlantixServices
 
         }
         $identifyUser->pathogen_indentify_status = $data["recognized_bool"] ? 1 : 0;
+        if (isset($crop_data_list)) {
 
+            return ["pathogen_data" => $pathogen_data_list, "crop_data" => $crop_data_list];
+        }
         return ["pathogen_data" => $pathogen_data_list];
     }
 }

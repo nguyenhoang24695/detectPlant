@@ -94,17 +94,20 @@ class PlantController extends Controller
         // Tạo 1 user nhận diện ảo với user là admin
         $user_identify = DataServices::CreateUserIdentifyTest($image_public_url);
 
-        //Dữ liệu sâu bệnh trả về từ Plantix service
-        $disease_data = PlantixServices::ImageAnalysis($user_identify, $image_url);
-
-        //Dữ liệu trả về từ plantId
-        $crop_data = PlantIdService::ImageAnalysis($user_identify, $image_url);
+        //Dữ liệu sâu bệnh và cây trồng trả về từ Plantix service
+        $crop_disease_data = PlantixServices::ImageAnalysis($user_identify, $image_url);
+        if (array_key_exists("crop_data", $crop_disease_data)) {
+            $response = $crop_disease_data;
+        } else {
+            //Dữ liệu trả về từ plantId
+            $crop_data = PlantIdService::ImageAnalysis($user_identify, $image_url);
+            $response = array_merge($crop_data, $crop_disease_data);
+        }
 
         //Lấy url của ảnh đưa vào response
-        foreach ($crop_data["crop_data"] as $key => $value) {
-            $crop_data["crop_data"][$key]["image"] = $image_public_url;
+        foreach ($response["crop_data"] as $key => $value) {
+            $response["crop_data"][$key]["image"] = $image_public_url;
         }
-        $response = array_merge($crop_data, $disease_data);
 
         //Lưu bản ghi người dùng nhận diện
         $user_identify->save();

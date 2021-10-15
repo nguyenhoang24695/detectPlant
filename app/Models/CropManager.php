@@ -12,14 +12,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class CropManager
- * 
+ *
  * @property int $id
  * @property string $crop_name
  * @property string|null $science_name
  * @property int $field_group
+ * @property int status
  * @property string|null $introduce
  * @property string|null $icon
  * @property string|null $image
+ * @property string|null $host
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
@@ -32,7 +34,8 @@ class CropManager extends Model
 	protected $table = 'crop_manager';
 
 	protected $casts = [
-		'field_group' => 'int'
+		'field_group' => 'int',
+		'status' => 'int'
 	];
 
 	protected $fillable = [
@@ -41,6 +44,8 @@ class CropManager extends Model
 		'field_group',
 		'introduce',
 		'icon',
-		'image'
+		'image',
+		'host',
+		'status'
 	];
 }

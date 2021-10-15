@@ -11,6 +11,7 @@ namespace App\Services;
 
 use App\Constants\CommonConstant;
 use App\Constants\PlantIdConstant;
+use App\Models\CropManager;
 use App\Models\IdentifyResult;
 use App\Models\IdentifyUser;
 use App\Models\MstCrop;
@@ -64,20 +65,17 @@ class PlantIdService
             $plantId_result->save();
 
             //Lưu crop nếu chưa tồn tại trong mst_crop
-            $crop = MstCrop::query()
-                ->where('scientific_name', $item["plant_details"]["scientific_name"])
+            $crop = CropManager::query()
+                ->where('science_name', $item["plant_details"]["scientific_name"])
                 ->first();
             if (!isset($crop)) {
-                $new_crop = new MstCrop();
-                $new_crop->scientific_name = $item["plant_details"]["scientific_name"];
-                $new_crop->name = $item["plant_details"]["common_names"][0] ?? '';
-                $new_crop->name_en = $item["plant_details"]["structured_name"]['genus'] . $item["plant_details"]["structured_name"]['species'];
-                $new_crop->family = $item["plant_details"]["taxonomy"]["family"] ?? '';
-                $new_crop->symbol = CommonConstant::PLANTID_STRING;
+                $new_crop = new CropManager();
+                $new_crop->science_name = $item["plant_details"]["scientific_name"];
+                $new_crop->crop_name = $item["plant_details"]["common_names"][0] ?? 'Unknown';
+                $new_crop->status = 0;
+                $new_crop->field_group = 1;
 
                 $new_crop->save();
-            } else {
-                $crop->update(['name' => $item["plant_details"]["common_names"][0] ?? '']);
             }
             $crop_data = DataServices::GetCropDataFromFromScientificName($item["plant_details"]["scientific_name"]);
             array_push($crop_data_list, $crop_data);

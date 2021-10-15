@@ -10,6 +10,7 @@ namespace App\Services;
 
 
 use App\Constants\CommonConstant;
+use App\Models\CropManager;
 use App\Models\CropPathogen;
 use App\Models\CropPathogenBiochemicalDrug;
 use App\Models\CropPathogenMethodGeneral;
@@ -54,7 +55,7 @@ class DataServices
             ->join('identify_result', 'identify_result.identify_user_id', '=', 'identify_user.id')
             ->join('mst_pathogen', 'mst_pathogen.scientific_name', '=', 'identify_result.scientific_name')
             ->where('identify_user.id', $identify_user_id)
-            ->where('identify_result.type', CommonConstant::PLANTIX_TYPE)
+            ->where('identify_result.type', CommonConstant::TYPE_PATHOGEN)
             ->get()
             ->toArray();
         foreach ($pathogen_data as $value) {
@@ -125,12 +126,10 @@ class DataServices
 
     public static function GetCropDataFromFromScientificName($scientificName): array
     {
-        $crop_data = MstCrop::query()
-            ->select('crop_manager.crop_name', 'crop_manager.introduce', 'mst_crop.name', 'mst_crop.name_en')
-            ->leftJoin('crop_manager', 'crop_manager.mst_crop_id', '=', 'mst_crop.id')
-            ->where('scientific_name', '=', $scientificName)
-            ->first()
-            ->toArray();
+        $crop_data = CropManager::query()
+            ->select('crop_manager.crop_name', 'crop_manager.introduce')
+            ->where('science_name', '=', $scientificName)
+            ->first()->toArray();
 
         return $crop_data;
     }
@@ -138,19 +137,18 @@ class DataServices
     public static function GetCropDataFromIdentifyUserId($identify_user_id): array
     {
         $pathogen_data = IdentifyUser::query()
-            ->select('crop_manager.crop_name', 'crop_manager.introduce', 'identify_user.image', 'mst_crop.name', 'mst_crop.name_en')
+            ->select('crop_manager.crop_name', 'crop_manager.introduce', 'identify_user.image')
             ->join('identify_result', 'identify_result.identify_user_id', '=', 'identify_user.id')
-            ->join('mst_crop', 'mst_crop.scientific_name', '=', 'identify_result.scientific_name')
-            ->leftJoin('crop_manager', 'crop_manager.mst_crop_id', '=', 'mst_crop.id')
+            ->join('crop_manager', 'crop_manager.science_name', '=', 'identify_result.scientific_name')
             ->where('identify_user.id', $identify_user_id)
-            ->where('identify_result.type', CommonConstant::PLANTID_TYPE)
+            ->where('identify_result.type', CommonConstant::TYPE_CROP)
             ->get()
             ->toArray();
 
         return ["crop_data" => $pathogen_data];
     }
 
-    public static function GetDrugInformation($panthogen_id, $drug_type)
+    public static function GetDrugInformation($panthogen_id, $drug_type): array
     {
 
         $drug_data = CropPathogenBiochemicalDrug::query()
